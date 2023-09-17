@@ -114,12 +114,12 @@ class Author extends Model {
   static async getOldByNameAndLibrary(authorName, libraryId) {
     const author = (await this.findOne({
       where: [
-        literal(`name = :authorName COLLATE NOCASE`),
+        literal(`name = $authorName COLLATE NOCASE`),
         {
           libraryId
         }
       ],
-      replacements: {
+      bind: {
         authorName
       }
     }))?.getOldAuthor()
