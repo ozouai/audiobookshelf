@@ -105,12 +105,12 @@ class Series extends Model {
   static async getOldByNameAndLibrary(seriesName, libraryId) {
     const series = (await this.findOne({
       where: [
-        literal(`name = :seriesName COLLATE NOCASE`),
+        literal(`name = $seriesName COLLATE NOCASE`),
         {
           libraryId
         }
       ],
-      replacements: {
+      bind: {
         seriesName
       }
     }))?.getOldSeries()
